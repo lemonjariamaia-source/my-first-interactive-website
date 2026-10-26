@@ -1,92 +1,204 @@
-body {
-  font-family: 'Nunito', sans-serif;
-  background-color: #f9f9f9;
-  color: #333;
+/* Linda's CSS-only language selector and owl animations. */
+:root {
+  --linda-bg: #ffffff;
+  --linda-border: #c9c2b8;
+  --linda-text: #2b2b2b;
+  --linda-muted: #6b6b6b;
+  --linda-accent: #2a9d8f;
+  --linda-focus: #f5a623;
 }
 
-.hero {
-  background-color: #e0f7fa;
-  padding: 40px;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --linda-bg: #2a2a2e;
+    --linda-border: #55555c;
+    --linda-text: #f1f1f1;
+    --linda-muted: #b5b5bb;
+  }
+}
+
+.linda {
+  width: min(300px, 100%);
+  margin: 0 auto;
+  padding: 1rem 0;
   text-align: center;
 }
 
-.hero h1 {
-  font-size: 3 em;
-  color: #00796b;
+.linda input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
-.hero p {
-  font-size: 1.2em;
-  margin: 20px 0;
+.linda .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
-.language-strip {
-  display: flex;
-  justify-content: space-around;
-  margin: 20px 0;
-}
-
-.language-chip {
-  background-color: #ffffff;
-  border: 2px solid #00796b;
-  border-radius: 8px;
-  padding: 15px;
-  text-align: center;
-  text-decoration: none;
-  color: #00796b;
-  transition: background-color 0.3s;
-}
-
-.language-chip:hover {
-  background-color: #b2dfdb;
-}
-
-.lesson-card {
-  background-color: #ffffff;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  margin: 20px 0;
-  padding: 20px;
-}
-
-.lesson-title-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.lesson-intro {
-  font-size: 1em;
-  margin: 10px 0;
-}
-
-.checklist-section {
-  background-color: #fff3e0;
-  padding: 20px;
-  border-radius: 8px;
-}
-
-.check-item {
+.linda__bubble {
+  position: relative;
   display: flex;
   align-items: center;
-  margin: 10px 0;
+  justify-content: center;
+  min-height: 76px;
+  padding: 12px 14px;
+  border: 1px solid var(--linda-border);
+  border-radius: 12px;
+  background: var(--linda-bg);
+  color: var(--linda-text);
+  font-size: 15px;
+  line-height: 1.5;
 }
 
-.custom-check {
-  width: 20px;
-  height: 20px;
-  border: 2px solid #00796b;
-  border-radius: 4px;
-  margin-right: 10px;
+.linda__bubble::after {
+  position: absolute;
+  bottom: -9px;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  border-right: 1px solid var(--linda-border);
+  border-bottom: 1px solid var(--linda-border);
+  background: var(--linda-bg);
+  content: "";
+  transform: translateX(-50%) rotate(45deg);
 }
 
-.check-emoji {
-  margin-left: 10px;
+.linda__bubble p {
+  display: none;
+  margin: 0;
 }
 
-.encouragement {
-  text-align: center;
-  margin: 20px 0;
-  font-size: 1.2em;
-  color: #00796b;
+#linda-ka:checked ~ .linda__bubble .linda__msg--ka,
+#linda-de:checked ~ .linda__bubble .linda__msg--de,
+#linda-en:checked ~ .linda__bubble .linda__msg--en {
+  display: block;
+}
+
+.linda__stage {
+  display: grid;
+  min-height: 250px;
+  margin-top: 14px;
+  place-items: center;
+  border-radius: 28px;
+  background: #f8edcf;
+}
+
+#linda-ka:checked ~ .linda__stage,
+#linda-de:checked ~ .linda__stage,
+#linda-en:checked ~ .linda__stage {
+  animation: linda-hop 0.5s ease-out;
+}
+
+@keyframes linda-hop {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-14px); }
+}
+
+.linda__owl {
+  width: 190px;
+  max-width: 80%;
+  height: auto;
+  cursor: pointer;
+  animation: linda-float 3s ease-in-out infinite;
+}
+
+@keyframes linda-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.linda__eye {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: linda-blink 4.5s infinite;
+}
+
+@keyframes linda-blink {
+  0%, 82%, 90% { transform: scaleY(1); }
+  95% { transform: scaleY(0.08); }
+}
+
+.linda__wing {
+  transform-box: fill-box;
+  transform-origin: 50% 0;
+}
+
+.linda__owl:hover .linda__wing--right {
+  animation: linda-wave-r 0.5s ease-in-out 3;
+}
+
+.linda__owl:hover .linda__wing--left {
+  animation: linda-wave-l 0.5s ease-in-out 3;
+}
+
+@keyframes linda-wave-r {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(-28deg); }
+}
+
+@keyframes linda-wave-l {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(28deg); }
+}
+
+.linda__head {
+  transition: transform 0.3s;
+}
+
+#linda-en:checked ~ .linda__stage .linda__head {
+  transform: rotate(-6deg);
+  transform-origin: 100px 130px;
+}
+
+.linda__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.linda__tabs label {
+  padding: 8px 14px;
+  border: 1px solid var(--linda-border);
+  border-radius: 8px;
+  background: var(--linda-bg);
+  color: var(--linda-text);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#linda-ka:checked ~ .linda__tabs label[for="linda-ka"],
+#linda-de:checked ~ .linda__tabs label[for="linda-de"],
+#linda-en:checked ~ .linda__tabs label[for="linda-en"] {
+  border-color: var(--linda-accent);
+  background: var(--linda-accent);
+  color: #ffffff;
+}
+
+#linda-ka:focus-visible ~ .linda__tabs label[for="linda-ka"],
+#linda-de:focus-visible ~ .linda__tabs label[for="linda-de"],
+#linda-en:focus-visible ~ .linda__tabs label[for="linda-en"] {
+  outline: 2px solid var(--linda-focus);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .linda__owl,
+  .linda__eye,
+  .linda__stage,
+  .linda__owl:hover .linda__wing {
+    animation: none !important;
+  }
+
+  .linda__head {
+    transition: none;
+  }
 }

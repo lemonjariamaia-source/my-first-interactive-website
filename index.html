@@ -82,15 +82,6 @@
       color: #fff;
       font-weight: 700;
     }
-    .owl-card {
-      display: grid;
-      min-height: 250px;
-      place-items: center;
-      border-radius: 28px;
-      background: #f8edcf;
-    }
-    .owl { width: 190px; max-width: 80%; }
-
     section.content-section { padding-block: 36px; }
     .section-heading { margin-bottom: 20px; }
     h2 { margin: 0; font-size: clamp(1.5rem, 3vw, 2rem); }
@@ -149,10 +140,10 @@
       header { flex-wrap: wrap; }
       nav { order: 3; width: 100%; justify-content: center; }
       .hero { grid-template-columns: 1fr; padding-top: 40px; }
-      .owl-card { min-height: 200px; }
       .cards { grid-template-columns: 1fr; }
     }
   </style>
+  <link rel="stylesheet" href="linda.css">
 </head>
 <body>
   <header>
@@ -181,25 +172,50 @@
         <a class="button" href="#lessons" data-text="start">დაიწყე სწავლა ↓</a>
       </div>
 
-      <div class="owl-card">
-        <svg class="owl" viewBox="0 0 200 220" role="img" aria-label="ლინდა, ბუ">
-          <ellipse cx="78" cy="206" rx="16" ry="6" fill="#f5a623"/>
-          <ellipse cx="122" cy="206" rx="16" ry="6" fill="#f5a623"/>
-          <ellipse cx="100" cy="140" rx="62" ry="64" fill="#8b5e3c"/>
-          <ellipse cx="100" cy="152" rx="42" ry="46" fill="#f6e3c4"/>
-          <path d="M44 122C22 142 26 182 48 190C60 172 62 142 54 122Z" fill="#6f4528"/>
-          <path d="M156 122C178 142 174 182 152 190C140 172 138 142 146 122Z" fill="#6f4528"/>
-          <ellipse cx="100" cy="86" rx="56" ry="46" fill="#a06b44"/>
-          <circle cx="76" cy="84" r="27" fill="#f6e3c4"/>
-          <circle cx="124" cy="84" r="27" fill="#f6e3c4"/>
-          <circle cx="76" cy="86" r="9" fill="#21160e"/>
-          <circle cx="124" cy="86" r="9" fill="#21160e"/>
-          <circle cx="80" cy="81" r="3" fill="white"/>
-          <circle cx="128" cy="81" r="3" fill="white"/>
-          <path d="M92 100L108 100L100 116Z" fill="#f5a623"/>
-          <path d="M80 56L80 66Q100 76 120 66L120 56L100 64Z" fill="#21796f"/>
-          <path d="M58 50L100 34L142 50L100 66Z" fill="#2a9d8f"/>
-        </svg>
+      <div class="linda">
+        <span class="sr-only">Choose a language to change Linda's greeting.</span>
+        <input type="radio" id="linda-ka" name="linda-language" checked>
+        <input type="radio" id="linda-de" name="linda-language">
+        <input type="radio" id="linda-en" name="linda-language">
+
+        <div class="linda__bubble" aria-live="polite">
+          <p class="linda__msg--ka" lang="ka">გამარჯობა! მოდი, ერთად ვისწავლოთ.</p>
+          <p class="linda__msg--de" lang="de">Hallo! Lass uns zusammen lernen.</p>
+          <p class="linda__msg--en" lang="en">Hello! Let's learn together.</p>
+        </div>
+
+        <div class="linda__stage">
+          <svg class="linda__owl" viewBox="0 0 200 220" role="img" aria-label="ლინდა, ბუ">
+            <ellipse cx="78" cy="206" rx="16" ry="6" fill="#f5a623"/>
+            <ellipse cx="122" cy="206" rx="16" ry="6" fill="#f5a623"/>
+            <ellipse cx="100" cy="140" rx="62" ry="64" fill="#8b5e3c"/>
+            <ellipse cx="100" cy="152" rx="42" ry="46" fill="#f6e3c4"/>
+            <path class="linda__wing linda__wing--left" d="M44 122C22 142 26 182 48 190C60 172 62 142 54 122Z" fill="#6f4528"/>
+            <path class="linda__wing linda__wing--right" d="M156 122C178 142 174 182 152 190C140 172 138 142 146 122Z" fill="#6f4528"/>
+            <g class="linda__head">
+              <ellipse cx="100" cy="86" rx="56" ry="46" fill="#a06b44"/>
+              <g class="linda__eye">
+                <circle cx="76" cy="84" r="27" fill="#f6e3c4"/>
+                <circle cx="76" cy="86" r="9" fill="#21160e"/>
+                <circle cx="80" cy="81" r="3" fill="white"/>
+              </g>
+              <g class="linda__eye">
+                <circle cx="124" cy="84" r="27" fill="#f6e3c4"/>
+                <circle cx="124" cy="86" r="9" fill="#21160e"/>
+                <circle cx="128" cy="81" r="3" fill="white"/>
+              </g>
+              <path d="M92 100L108 100L100 116Z" fill="#f5a623"/>
+              <path d="M80 56L80 66Q100 76 120 66L120 56L100 64Z" fill="#21796f"/>
+              <path d="M58 50L100 34L142 50L100 66Z" fill="#2a9d8f"/>
+            </g>
+          </svg>
+        </div>
+
+        <div class="linda__tabs" role="group" aria-label="Linda's greeting language">
+          <label for="linda-ka" lang="ka">ქართული</label>
+          <label for="linda-de" lang="de">Deutsch</label>
+          <label for="linda-en" lang="en">English</label>
+        </div>
       </div>
     </section>
 
@@ -463,4 +479,3 @@
   </script>
 </body>
 </html>
-
