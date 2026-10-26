@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Learn Georgian, German, and English with friendly lessons and practice.">
+  <title>ჩემი პირველი ინტერაქტიული ვებ გვერდი</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #263238;
+      --muted: #64748b;
+      --teal: #167c78;
+      --teal-light: #e6f5f2;
+      --gold: #f4b942;
+      --paper: #fbf2e5;
+      --line: #e8e7e1;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Arial, "Noto Sans Georgian", sans-serif;
+      line-height: 1.65;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+    .wrap { width: min(1080px, calc(100% - 36px)); margin-inline: auto; }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 18px max(18px, calc((100% - 1080px) / 2));
+      border-bottom: 1px solid var(--line);
+      background: #fffaf2; /* in the header rule */
+    }
+    .logo { font-weight: 800; color: var(--teal); }
+    nav { display: flex; gap: 20px; color: var(--muted); font-size: .95rem; }
+    nav a:hover, .top-link:hover { color: var(--teal); }
+    .language-picker { display: flex; gap: 6px; }
+    .language-picker button {
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: #fff;
+      cursor: pointer;
+    }
+    .language-picker button[aria-pressed="true"] {
+      border-color: var(--teal);
+      background: var(--teal-light);
+      color: var(--teal);
+      font-weight: 700;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.4fr .8fr;
+      align-items: center;
+      gap: 30px;
+      padding-block: 64px 44px;
+    }
+    .eyebrow {
+      color: var(--teal);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+    h1 { margin: 10px 0; font-size: clamp(2.3rem, 6vw, 4.4rem); line-height: 1.1; }
+    h1 span { color: var(--teal); }
+    .intro { max-width: 570px; color: var(--muted); font-size: 1.1rem; }
+    .button {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 12px 18px;
+      border-radius: 10px;
+      background: var(--teal);
+      color: #fff;
+      font-weight: 700;
+    }
+    .owl-card {
+      display: grid;
+      min-height: 250px;
+      place-items: center;
+      border-radius: 28px;
+      background: #f8edcf;
+    }
+    .owl { width: 190px; max-width: 80%; }
+
+    section.content-section { padding-block: 36px; }
+    .section-heading { margin-bottom: 20px; }
+    h2 { margin: 0; font-size: clamp(1.5rem, 3vw, 2rem); }
+    .section-description { margin: 6px 0 0; color: var(--muted); }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .card {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fffaf2; /* in the .card rule */
+    }
+    .card h3 { margin: 0 0 8px; }
+    .phrase {
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 10px;
+      background: var(--teal-light);
+    }
+    .phrase strong { display: block; color: var(--teal); font-size: 1.1rem; }
+    .phrase span { color: var(--muted); }
+
+    .practice {
+      padding: 24px;
+      border-radius: 18px;
+      background: #f4f1e8;
+    }
+    .options { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+    .options button {
+      padding: 10px 14px;
+      border: 1px solid #d6d3c8;
+      border-radius: 9px;
+      background: white;
+      cursor: pointer;
+    }
+    .options button:hover { border-color: var(--teal); }
+    #quiz-result { min-height: 1.6em; font-weight: 700; }
+
+    .checklist { display: grid; gap: 12px; }
+    .checklist label { display: flex; align-items: center; gap: 10px; }
+    .checklist input { accent-color: var(--teal); width: 18px; height: 18px; }
+
+    footer {
+      margin-top: 40px;
+      padding: 24px 18px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 720px) {
+      header { flex-wrap: wrap; }
+      nav { order: 3; width: 100%; justify-content: center; }
+      .hero { grid-template-columns: 1fr; padding-top: 40px; }
+      .owl-card { min-height: 200px; }
+      .cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <a class="logo" href="#home">✿ Little Lingua</a>
+      <small data-text="siteNote">მაიკოს პირველი ვებ-საიტი</small>
+    </div>
+    <nav aria-label="Navigation">
+      <a href="#lessons" data-text="navLessons">გაკვეთილები</a>
+      <a href="#practice" data-text="navPractice">ვარჯიში</a>
+      <a href="#checklist" data-text="navChecklist">ჩემი სია</a>
+    </nav>
+    <div class="language-picker" aria-label="აირჩიეთ ინტერფეისის ენა">
+      <button type="button" data-language="ka" aria-pressed="true">ქართული</button>
+      <button type="button" data-language="de" aria-pressed="false">Deutsch</button>
+      <button type="button" data-language="en" aria-pressed="false">English</button>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero wrap">
+      <div>
+        <span class="eyebrow" data-text="eyebrow">სამი ენა — ერთი სახალისო თავგადასავალი</span>
+        <h1><span data-text="titleFirst">ისწავლე</span><br><span data-text="titleSecond">ახალი ენები!</span></h1>
+        <p class="intro" data-text="intro">გაიცანი ლინდა, მეგობრული ბუ, და დაიწყე ქართული, გერმანული და ინგლისური ენის სწავლა.</p>
+        <a class="button" href="#lessons" data-text="start">დაიწყე სწავლა ↓</a>
+      </div>
+
+      <div class="owl-card">
+        <svg class="owl" viewBox="0 0 200 220" role="img" aria-label="ლინდა, ბუ">
+          <ellipse cx="78" cy="206" rx="16" ry="6" fill="#f5a623"/>
+          <ellipse cx="122" cy="206" rx="16" ry="6" fill="#f5a623"/>
+          <ellipse cx="100" cy="140" rx="62" ry="64" fill="#8b5e3c"/>
+          <ellipse cx="100" cy="152" rx="42" ry="46" fill="#f6e3c4"/>
+          <path d="M44 122C22 142 26 182 48 190C60 172 62 142 54 122Z" fill="#6f4528"/>
+          <path d="M156 122C178 142 174 182 152 190C140 172 138 142 146 122Z" fill="#6f4528"/>
+          <ellipse cx="100" cy="86" rx="56" ry="46" fill="#a06b44"/>
+          <circle cx="76" cy="84" r="27" fill="#f6e3c4"/>
+          <circle cx="124" cy="84" r="27" fill="#f6e3c4"/>
+          <circle cx="76" cy="86" r="9" fill="#21160e"/>
+          <circle cx="124" cy="86" r="9" fill="#21160e"/>
+          <circle cx="80" cy="81" r="3" fill="white"/>
+          <circle cx="128" cy="81" r="3" fill="white"/>
+          <path d="M92 100L108 100L100 116Z" fill="#f5a623"/>
+          <path d="M80 56L80 66Q100 76 120 66L120 56L100 64Z" fill="#21796f"/>
+          <path d="M58 50L100 34L142 50L100 66Z" fill="#2a9d8f"/>
+        </svg>
+      </div>
+    </section>
+
+    <section class="content-section wrap" id="lessons">
+      <div class="section-heading">
+        <h2 data-text="lessonTitle">პირველი ფრაზები სამ ენაზე</h2>
+        <p class="section-description" data-text="lessonDescription">შეადარე მისალმებები ქართულად, გერმანულად და ინგლისურად.</p>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <h3>🇬🇪 ქართული</h3>
+          <p data-text="georgianDesc">ისწავლე ქართული მისალმება.</p>
+          <div class="phrase"><strong>გამარჯობა!</strong><span>Gamarjoba!</span></div>
+        </article>
+        <article class="card">
+          <h3>🇩🇪 Deutsch</h3>
+          <p data-text="germanDesc">Lerne eine deutsche Begrüßung.</p>
+          <div class="phrase"><strong>Hallo!</strong><span>გამარჯობა!</span></div>
+        </article>
+        <article class="card">
+          <h3>🇬🇧 English</h3>
+          <p data-text="englishDesc">Learn an English greeting.</p>
+          <div class="phrase"><strong>Hello!</strong><span>გამარჯობა!</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="content-section wrap" id="practice">
+      <div class="practice">
+        <h2 data-text="quizTitle">მინი-ვიქტორინა</h2>
+        <p data-text="quizQuestion">რომელი ფრაზა ნიშნავს „გამარჯობას“ ქართულად?</p>
+        <div class="options">
+          <button type="button" data-answer="wrong">Auf Wiedersehen</button>
+          <button type="button" data-answer="right">გამარჯობა</button>
+          <button type="button" data-answer="wrong">Good night</button>
+        </div>
+        <p id="quiz-result" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="content-section wrap" id="checklist">
+      <div class="section-heading">
+        <h2 data-text="checkTitle">ჩემი დღევანდელი სასწავლო სია</h2>
+        <p class="section-description" data-text="checkDescription">მონიშნე შესრულებული დავალებები.</p>
+      </div>
+      <div class="checklist">
+        <label><input type="checkbox"><span data-text="taskOne">ისწავლე ერთი ახალი ქართული სიტყვა</span></label>
+        <label><input type="checkbox"><span data-text="taskTwo">წაიკითხე გერმანული ფრაზა ხმამაღლა</span></label>
+        <label><input type="checkbox"><span data-text="taskThree">სცადე ინგლისური მისალმება</span></label>
+      </div>
+    </section>
+
+    <section class="content-section wrap" id="a1-course">
+      <div class="section-heading">
+        <h2>A1-Grundkurs · ქართული · Deutsch · English</h2>
+        <p class="section-description">
+          Acht kurze Lektionen für Anfänger. Lies die Beispiele und öffne die Übung zur Selbstkontrolle.
+        </p>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <h3>1. Begrüßen und vorstellen</h3>
+          <p><strong>ქართული:</strong> გამარჯობა! მე მაია მქვია.</p>
+          <p><strong>Deutsch:</strong> Hallo! Ich heiße Maia.</p>
+          <p><strong>English:</strong> Hello! My name is Maia.</p>
+          <p><strong>Merke:</strong> Sage deinen Namen und frage: „Wie heißt du?“</p>
+          <details><summary>Übung und Lösung</summary>
+            <p>Ergänze: „Hallo! Ich ___ Anna.“ Lösung: <strong>heiße</strong>.</p>
+            <p>ქართული: „გამარჯობა! მე ანა მქვია.“</p>
+            <p>English: “Hello! My name is Anna.”</p>
+          </details>
+        </article>
+
+        <article class="card">
+          <h3>2. Zahlen und Alter</h3>
+          <p><strong>ქართული:</strong> ერთი, ორი, სამი — მე 20 წლის ვარ.</p>
+          <p><strong>Deutsch:</strong> eins, zwei, drei — Ich bin 20 Jahre alt.</p>
+          <p><strong>English:</strong> one, two, three — I am 20 years old.</p>
+          <p><strong>Merke:</strong> Übe die Zahlen 1–10 und sage dein Alter.</p>
+          <details><summary>Übung und Lösung</summary>
+            <p>Ergänze: „Ich bin 18 Jahre ___.“ Lösung: <strong>alt</strong>.</p>
+            <p>ქართული: „მე 18 წლის ვარ.“</p>
+            <p>English: “I am 18 years old.”</p>
+          </details>
+        </article>
+
+        <article class="card">
+          <h3>3. Herkunft und Sprachen</h3>
+          <p><strong>ქართული:</strong> მე საქართველოდან ვარ. ქართულად ვლაპარაკობ.</p>
+          <p><strong>Deutsch:</strong> Ich komme aus Georgien. Ich spreche Georgisch.</p>
+          <p><strong>English:</strong> I am from Georgia. I speak Georgian.</p>
+          <p><strong>Merke:</strong> „Ich komme aus …“ sagt, woher du kommst.</p>
+          <details><summary>Übung und Lösung</summary>
+            <p>Ergänze: „Ich komme ___ Deutschland.“ Lösung: <strong>aus</strong>.</p>
+            <p>ქართული: „მე გერმანიიდან ვარ.“</p>
+            <p>English: “I am from Germany.”</p>
+          </details>
+        </article>
+
+        <article class="card">
+          <h3>4. Familie</h3>
+          <p><strong>ქართული:</strong> ეს ჩემი ოჯახია. ეს ჩემი დაა.</p>
+          <p><strong>Deutsch:</strong> Das ist meine Familie. Das ist meine Schwester.</p>
+          <p><strong>English:</strong> This is my family. This is my sister.</p>
+          <p><strong>Merke:</strong> „Das ist …“ / „This is …“ / „ეს არის …“</p>
+          <details><summary>Übung und Lösung</summary>
+            <p>Wie heißt „Mutter“ auf Deutsch? Lösung: <strong>mother</strong> heißt „Mutter“.</p>
+            <p>ქართული: დედა · Deutsch: Mutter · English: mother</p>
+          </details>
+        </article>
+
+        <article class="card">
+          <h3>5. Tagesablauf</h3>
+          <p><strong>ქართული:</strong> დილით ვდგები. ყავას ვსვამ.</p>
+          <p><strong>Deutsch:</strong> Morgens stehe ich auf. Ich trinke Kaffee.</p>
+          <p><strong>English:</strong> I get up in the morning. I drink coffee.</p>
+          <p><strong>Merke:</strong> Beschreibe zwei Dinge, die du jeden Tag machst.</p>
+          <details><summary>Übung und Lösung</summary>
+            <p>Ergänze: „Morgens ___ ich Kaffee.“ Lösung: <strong>trinke</strong>.</p>
+            <p>ქართული: „დილით ყავას ვსვამ.“</p>
+            <p>English: “I drink coffee in the morning.”</p>
+          </details>
+        </article>
+
+        <article class="card">
+          <h3>6. Essen und Trinken</h3>
+          <p><strong>ქართული:</strong> წყალი მინდა, გთხოვთ. პური მიყვარს.</p>
+          <p><strong>Deutsch:</strong> Ich möchte bitte Wasser. Ich mag Brot.</p>
+          <p><strong>English:</strong> I would like water, please. I like bread.</p>
+          <p><strong>Merke:</strong> „Ich möchte …“ ist eine höfliche Bitte.</p>
+          <details><summary>Übung und Lösung</summary>
+            <p>Wie bestellst du Wasser auf Deutsch? Lösung: <strong>Ich möchte bitte Wasser.</strong></p>
+            <p>ქართული: „წყალი მინდა, გთხოვთ.“</p>
+            <p>English: “I would like water, please.”</p>
+          </details>
+        </article>
+
+        <article class="card">
+          <h3>7. Orte und Wegbeschreibung</h3>
+          <p><strong>ქართული:</strong> სად არის სადგური? პირდაპირ წადით.</p>
+          <p><strong>Deutsch:</strong> Wo ist der Bahnhof? Gehen Sie geradeaus.</p>
+          <p><strong>English:</strong> Where is the station? Go straight ahead.</p>
+          <p><strong>Merke:</strong> Frage nach einem Ort und höre auf einfache Richtungsangaben.</p>
+          <details><summary>Übung und Lösung</summary>
+            <p>Was bedeutet „geradeaus“? Lösung: <strong>straight ahead</strong>.</p>
+            <p>ქართული: პირდაპირ · Deutsch: geradeaus · English: straight ahead</p>
+          </details>
+        </article>
+
+        <article class="card">
+          <h3>8. Einkaufen und Preise</h3>
+          <p><strong>ქართული:</strong> ეს რა ღირს? ეს მინდა, გთხოვთ.</p>
+          <p><strong>Deutsch:</strong> Wie viel kostet das? Das möchte ich bitte.</p>
+          <p><strong>English:</strong> How much is this? I would like this, please.</p>
+          <p><strong>Merke:</strong> Frage nach dem Preis und bestelle höflich.</p>
+          <details><summary>Übung und Lösung</summary>
+            <p>Wie fragst du auf Deutsch nach dem Preis? Lösung: <strong>Wie viel kostet das?</strong></p>
+            <p>ქართული: „ეს რა ღირს?“</p>
+            <p>English: “How much is this?”</p>
+          </details>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+
+    <p><span data-text="footer">შეცდომები სწავლის ნაწილია — შენ კარგად გამოგდის!</span> 🌈</p>
+    <br>
+    <p data-text="siteCredit">ეს  ჩემი პირველი ვებ-საიტია.</p>
+    <p><span data-text="contactLabel">საკონტაქტო ინფორმაცია :</span> +9955993100......</p>
+    
+  </footer>
+
+  <script>
+    const translations = {
+      ka: {
+        navLessons: "გაკვეთილები", navPractice: "ვარჯიში", navChecklist: "ჩემი სია",
+        eyebrow: "სამი ენა — ერთი სახალისო თავგადასავალი",
+        titleFirst: "ისწავლე", titleSecond: "ახალი ენები!",
+        intro: "გაიცანი ლინდა, მეგობრული ბუ, და დაიწყე ქართული, გერმანული და ინგლისური ენის სწავლა.",
+        start: "დაიწყე სწავლა ↓", lessonTitle: "პირველი ფრაზები სამ ენაზე",
+        lessonDescription: "შეადარე მისალმებები ქართულად, გერმანულად და ინგლისურად.",
+        georgianDesc: "ისწავლე ქართული მისალმება.", germanDesc: "ისწავლე გერმანული მისალმება.",
+        englishDesc: "ისწავლე ინგლისური მისალმება.", quizTitle: "მინი-ვიქტორინა",
+        quizQuestion: "რომელი ფრაზა ნიშნავს „გამარჯობას“ ქართულად?",
+        checkTitle: "ჩემი დღევანდელი სასწავლო სია",
+        checkDescription: "მონიშნე შესრულებული დავალებები.",
+        taskOne: "ისწავლე ერთი ახალი ქართული სიტყვა",
+        taskTwo: "წაიკითხე გერმანული ფრაზა ხმამაღლა",
+        taskThree: "სცადე ინგლისური მისალმება",
+        footer: "შეცდომები სწავლის ნაწილია — შენ კარგად გამოგდის!",
+        correct: "სწორია! „გამარჯობა“ ქართულად მისალმებაა.",
+        wrong: "კიდევ სცადე — მოძებნე ქართული მისალმება."
+      },
+      de: {
+        navLessons: "Lektionen", navPractice: "Übung", navChecklist: "Meine Liste",
+        eyebrow: "DREI SPRACHEN — EIN SPANNENDES ABENTEUER",
+        titleFirst: "Lerne", titleSecond: "neue Sprachen!",
+        intro: "Lerne Linda kennen, die freundliche Eule, und entdecke Georgisch, Deutsch und Englisch.",
+        start: "Jetzt lernen ↓", lessonTitle: "Erste Wörter in drei Sprachen",
+        lessonDescription: "Vergleiche Begrüßungen auf Georgisch, Deutsch und Englisch.",
+        georgianDesc: "Lerne eine georgische Begrüßung.", germanDesc: "Lerne eine deutsche Begrüßung.",
+        englishDesc: "Lerne eine englische Begrüßung.", quizTitle: "Mini-Quiz",
+        quizQuestion: "Welche georgische Wendung bedeutet „Hallo“?",
+        checkTitle: "Meine heutige Lernliste",
+        checkDescription: "Hake erledigte Aufgaben ab.",
+        taskOne: "Lerne ein neues georgisches Wort",
+        taskTwo: "Lies den deutschen Satz laut vor",
+        taskThree: "Probiere eine englische Begrüßung",
+        footer: "Fehler gehören zum Lernen — du machst das toll!",
+        correct: "Richtig! „გამარჯობა“ ist eine georgische Begrüßung.",
+        wrong: "Versuch es noch einmal — wähle die georgische Begrüßung."
+      },
+      en: {
+        navLessons: "Lessons", navPractice: "Practice", navChecklist: "My checklist",
+        eyebrow: "THREE LANGUAGES — ONE FUN ADVENTURE",
+        titleFirst: "Learn", titleSecond: "new languages!",
+        intro: "Meet Linda, your friendly owl guide, and explore Georgian, German, and English.",
+        start: "Start learning ↓", lessonTitle: "Your first phrases in three languages",
+        lessonDescription: "Compare greetings in Georgian, German, and English.",
+        georgianDesc: "Learn a Georgian greeting.", germanDesc: "Learn a German greeting.",
+        englishDesc: "Learn an English greeting.", quizTitle: "Quick quiz",
+        quizQuestion: "Which Georgian phrase means “Hello”?",
+        checkTitle: "My learning checklist",
+        checkDescription: "Check off each task as you finish it.",
+        taskOne: "Learn one new Georgian word",
+        taskTwo: "Read the German phrase aloud",
+        taskThree: "Try an English greeting",
+        footer: "Mistakes are part of learning — you’re doing great!",
+        correct: "Correct! “გამარჯობა” is a Georgian greeting.",
+        wrong: "Try again — choose the Georgian greeting."
+      }
+    };
+
+    let currentLanguage = "ka";
+
+    document.querySelectorAll("[data-language]").forEach(button => {
+      button.addEventListener("click", () => {
+        currentLanguage = button.dataset.language;
+        document.documentElement.lang = currentLanguage;
+        document.querySelectorAll("[data-language]").forEach(item => {
+          item.setAttribute("aria-pressed", String(item === button));
+        });
+        document.querySelectorAll("[data-text]").forEach(element => {
+          const key = element.dataset.text;
+          element.textContent = translations[currentLanguage][key];
+        });
+        document.getElementById("quiz-result").textContent = "";
+      });
+    });
+
+    document.querySelectorAll("[data-answer]").forEach(button => {
+      button.addEventListener("click", () => {
+        const key = button.dataset.answer === "right" ? "correct" : "wrong";
+        document.getElementById("quiz-result").textContent =
+          translations[currentLanguage][key];
+      });
+    });
+  </script>
+</body>
+</html>
+

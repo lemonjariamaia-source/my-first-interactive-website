@@ -1,0 +1,121 @@
+body {
+  font-family: 'Nunito', sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+.site-header {
+  background-color: #21796f;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.site-header .logo {
+  font-size: 1.5em;
+  text-decoration: none;
+  color: white;
+}
+
+.main-nav {
+  margin: 20px 0;
+}
+
+.main-nav a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: white;
+}
+
+.header-cta {
+  background-color: #f5a623;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px;
+  background-color: #e0f7fa;
+}
+
+.hero-copy {
+  max-width: 50%;
+}
+
+.hero-text {
+  margin: 20px 0;
+}
+
+.hero-actions .button {
+  background-color: #f5a623;
+  color: white;
+  padding: 10px 15px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.language-strip {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+  background-color: #fff;
+}
+
+.language-chip {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #333;
+}
+
+.lesson-section {
+  padding: 20px;
+}
+
+.lesson-card {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 20px 0;
+  padding: 15px;
+}
+
+.practice-section {
+  background-color: #e0f7fa;
+  padding: 20px;
+}
+
+.checklist-section {
+  padding: 20px;
+}
+
+.checklist-card {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 15px;
+}
+
+.encouragement {
+  text-align: center;
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+.site-footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #21796f;
+  color: white;
+}
